@@ -1,0 +1,686 @@
+/* =========================================================
+= 18) Players page (목록 + 상세 + 폼)
+========================================================= */
+
+.players-page {
+  --line: rgba(0, 0, 0, .08);
+  --chip: #f6f7f9;
+  --chip-b: #eef0f4;
+  --muted: #6b7788;
+  --ribbon: #111827;
+  --ribbon-role: #272c2c;
+  --ribbon-off: #6c757d;
+  background: #f7f4f8;
+}
+
+body.players-page {
+  background: #f7f4f8;
+}
+
+/* 상단 제목 / 메타 */
+
+.players-page .page-title {
+  letter-spacing: .2px;
+  font-weight: 800;
+}
+
+.players-page .page-head h3.page-title {
+  font-weight: 800;
+  letter-spacing: .02em;
+  color: #3a1324;
+}
+
+.players-page .page-title .dot {
+  width: .6rem;
+  height: .6rem;
+  border-radius: 9999px;
+  background: #0d6efd;
+  display: inline-block;
+  box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .15);
+}
+
+.players-page .meta-wrap {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+}
+
+.players-page .meta {
+  font-size: .8rem;
+  color: #7b5262;
+  background: #faf2f6;
+  border: 1px solid #ead0dd;
+  padding: .25rem .5rem;
+  border-radius: 8px;
+}
+
+/* 툴바 */
+
+.players-page .players-toolbar {
+  border-radius: .9rem;
+  border: 1px solid #ead0dd;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(87, 49, 69, .08);
+}
+
+.players-page .players-toolbar .input-group-text {
+  border-color: #e5cfda;
+  background: #fff5fa;
+  color: #a0204c;
+}
+
+.players-page .players-toolbar .form-control,
+.players-page .players-toolbar .form-select {
+  border-color: #e2ccd8;
+}
+
+.players-page .players-toolbar .form-control:focus,
+.players-page .players-toolbar .form-select:focus {
+  border-color: #a0204c;
+  box-shadow: 0 0 0 .16rem rgba(160, 32, 76, .25);
+}
+
+.players-page .players-toolbar .btn-dark {
+  background: #3d1324;
+  border-color: #3d1324;
+}
+
+.players-page .players-toolbar .btn-dark:hover {
+  background: #571832;
+  border-color: #571832;
+}
+
+.players-page .filter-pills .pill {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  border-radius: 999px;
+  border: 1px dashed #e1cad6;
+  padding: .25rem .6rem;
+  font-size: .8rem;
+  background: #faf5f8;
+  color: #7b5262;
+}
+
+.players-page .filter-pills .pill.active {
+  background: #fbe4f0;
+  border-color: #efb8d2;
+  color: #a0204c;
+  font-weight: 700;
+}
+
+.players-page .filter-pills .pill i {
+  color: #a0204c;
+}
+
+/* 카드 그리드 */
+
+.players-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .35rem;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.players-grid > .col {
+  padding: 0;
+  flex: initial;
+  max-width: 100%;
+}
+
+@media (min-width: 768px) {
+  .players-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1200px) {
+  .players-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* 썸네일 */
+
+.player-thumb {
+  position: relative;
+  padding-top: 125%;
+  background: radial-gradient(circle at 10% 0, #ffe6f1, #f3f4f7 55%);
+}
+
+.players-thumb-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.players-thumb-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #9aa3af;
+}
+
+.players-page .players-thumb-fallback i {
+  color: #c19ab1;
+}
+
+/* 리본 */
+
+.ribbon {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  padding: .25rem .5rem;
+  border-radius: 6px;
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .3px;
+  color: #fff;
+  background: var(--ribbon);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .18);
+}
+
+.ribbon.role {
+  background: var(--ribbon-role);
+}
+
+.ribbon.status {
+  right: 10px;
+  left: auto;
+  background: var(--ribbon-off);
+}
+
+/* 카드 본문 */
+
+.players-card {
+  border: 0.5px solid #747474;
+  transition: border-color .1s ease, box-shadow .1s ease;
+  border-radius: .5rem;
+}
+
+.players-page .players-card,
+.teams-page .players-card {
+  height: 100%;
+}
+
+.players-page .players-card {
+  background: #ffffff;
+  border-radius: .9rem;
+  border: 1px solid #ead0dd;
+  box-shadow: 0 6px 16px rgba(87, 49, 69, .06);
+  overflow: hidden;
+  transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+}
+
+.players-page .players-card:hover {
+  border-color: #d9b6ca;
+  box-shadow: 0 10px 24px rgba(87, 49, 69, .12);
+  transform: translateY(-1px);
+}
+
+.players-card .card-title {
+  font-weight: 800;
+  letter-spacing: .2px;
+  color: #3b1724;
+}
+
+.players-card .realname {
+  color: #95a0b2 !important;
+}
+
+.players-page .players-card .realname {
+  color: #9a7d8d !important;
+}
+
+.players-card .meta-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  background: var(--chip);
+  border: 1px solid var(--chip-b);
+  padding: .1rem .45rem;
+  border-radius: 6px;
+  font-size: .78rem;
+}
+
+.players-page .players-card .meta-chip {
+  background: #faf2f6;
+  border-color: #ebd3df;
+  color: #7b5262;
+}
+
+.players-card .team-chip {
+  font-weight: 600;
+}
+
+.players-page .players-card .team-chip {
+  font-weight: 700;
+  background: #ffe9f3;
+  border-color: #f2c0d8;
+  color: #8c234f;
+}
+
+/* 상태 필 */
+
+.players-page .state-pill {
+  border-radius: 999px;
+  padding: 0.25rem 0.7rem;
+  font-size: .78rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+}
+
+.players-page .state-pill.bg-success {
+  background: #fbe4f0 !important;
+  color: #a0204c !important;
+  border: 1px solid #efb8d2;
+}
+
+.players-page .state-pill.bg-secondary {
+  background: #f0edf1 !important;
+  color: #6b6472 !important;
+  border: 1px solid #ddd2e0;
+}
+
+/* 빈 상태 */
+
+.players-page .empty {
+  border: 1px dashed var(--line);
+  border-radius: 14px;
+  padding: 2rem;
+  background: #fffafd;
+  color: #7b5262;
+}
+
+/* 상세 카드 / meta-grid */
+
+.players-page .card-elev {
+  border-radius: 1rem;
+  border: 1px solid #ead0dd;
+  background: #ffffff;
+  box-shadow: 0 10px 26px rgba(87, 49, 69, 0.08);
+  overflow: hidden;
+}
+
+.players-page .card-elev .card-body {
+  padding: 1.5rem 1.5rem 1.25rem;
+}
+
+.players-page .photo-hero {
+  position: relative;
+  background: radial-gradient(circle at 10% 0, #ffe3f0, #f3f4f7 55%);
+  overflow: hidden;
+}
+
+.players-page .photo-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.players-page .chips-row {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  flex-wrap: nowrap;
+}
+
+.players-page .chips-row .push-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.players-page .kv {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .35rem 0;
+}
+
+.players-page .kv .k {
+  flex: 0 0 90px;
+  font-size: .78rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: #a4798c;
+  margin-bottom: .15rem;
+}
+
+.players-page .kv .v {
+  flex: 1;
+  font-size: .95rem;
+  color: #3b1724;
+  font-weight: 600;
+}
+
+.players-page .kv .v a {
+  color: #8c234f;
+  text-decoration: none;
+}
+
+.players-page .kv .v a:hover {
+  color: #5d1634;
+  text-decoration: underline;
+}
+
+.players-page .section-title.small,
+.players-page .section-title {
+  font-size: .9rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: #5a2034;
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  margin-bottom: .8rem;
+}
+
+.players-page .section-title i,
+.players-page .section-title.small i {
+  font-size: .9rem;
+  color: #b22553;
+}
+
+.players-page .meta-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 2fr);
+  gap: .4rem .8rem;
+  margin-top: .4rem;
+}
+
+.players-page .meta-grid .meta-item {
+  display: contents;
+}
+
+.players-page .meta-grid .meta-item .k {
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: #a4798c;
+}
+
+.players-page .meta-grid .meta-item .v {
+  font-size: .85rem;
+  color: #3b1724;
+  word-break: break-all;
+}
+
+.players-page .meta-grid .meta-item .v a {
+  color: #8c234f;
+  text-decoration: none;
+}
+
+.players-page .meta-grid .meta-item .v a:hover {
+  color: #5d1634;
+  text-decoration: underline;
+}
+
+/* 폼 (생성/수정) */
+
+.players-page .toolbar {
+  margin-bottom: 1.25rem;
+}
+
+.players-page .toolbar .page-title {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.players-page .toolbar .page-title .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #b22553, #e39aba);
+  box-shadow: 0 0 0 3px rgba(178, 37, 83, 0.18);
+}
+
+.players-page .toolbar h3 {
+  font-weight: 700;
+  color: #3b1724;
+}
+
+.players-page .section + .section {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #f0e2ec;
+}
+
+.players-page .form-label {
+  font-size: .86rem;
+  font-weight: 600;
+  color: #5a2034;
+}
+
+.players-page .form-control,
+.players-page .form-select,
+.players-page textarea.form-control {
+  border-radius: .6rem;
+  border-color: #e6d3df;
+  box-shadow: none;
+  font-size: .9rem;
+}
+
+.players-page .form-control:focus,
+.players-page .form-select:focus,
+.players-page textarea.form-control:focus {
+  border-color: #b22553;
+  box-shadow: 0 0 0 0.12rem rgba(178, 37, 83, .18);
+}
+
+.players-page .help {
+  font-size: .78rem;
+  color: #9f7a90;
+}
+
+.players-page .preview-box {
+  margin-top: .5rem;
+  padding: .75rem 1rem;
+  border-radius: .8rem;
+  border: 1px dashed #e2c8d7;
+  background: #fbf7fa;
+}
+
+.players-page .preview-box .frame {
+  width: 100%;
+  max-width: 260px;
+  border-radius: .8rem;
+  overflow: hidden;
+  background: #f1e3ed;
+}
+
+.players-page #preview {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.players-page .form-check-input {
+  border-radius: .35rem;
+  border-color: #dcbfd0;
+}
+
+.players-page .form-check-input:checked {
+  background-color: #b22553;
+  border-color: #b22553;
+}
+
+.players-page .form-check-label {
+  font-size: .9rem;
+  color: #4b1d2f;
+}
+
+.players-page textarea.form-control {
+  font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: .85rem;
+}
+
+.players-page .alert {
+  border-radius: .9rem;
+  border-width: 1px;
+  font-size: .88rem;
+}
+
+.players-page .alert-success {
+  background: #f4f9f4;
+  border-color: #cbe5cf;
+  color: #22552f;
+}
+
+.players-page .alert-danger {
+  background: #fff5f7;
+  border-color: #f1c0cf;
+  color: #7f1d3a;
+}
+
+.players-page .actions {
+  margin-top: 1.5rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid #f0e2ec;
+  display: flex;
+  gap: .5rem;
+}
+
+/* 버튼들 */
+
+.players-page .btn-primary {
+  background-color: #b22553;
+  border-color: #b22553;
+  border-radius: 999px;
+  font-size: .9rem;
+  padding: .4rem 1.2rem;
+}
+
+.players-page .btn-primary:hover {
+  background-color: #7f193a;
+  border-color: #7f193a;
+}
+
+.players-page .btn-outline-primary {
+  border-color: #a0204c;
+  color: #a0204c;
+  border-radius: 999px;
+  font-size: .9rem;
+  padding: .4rem 1.2rem;
+}
+
+.players-page .btn-outline-primary:hover {
+  background-color: #a0204c;
+  border-color: #a0204c;
+  color: #fff;
+}
+
+.players-page .btn-outline-secondary {
+  border-color: #c2a7b7;
+  color: #7b5262;
+  border-radius: 999px;
+  font-size: .9rem;
+  padding: .4rem 1.2rem;
+}
+
+.players-page .btn-outline-secondary:hover {
+  background-color: #f5e7f0;
+  border-color: #c2a7b7;
+  color: #5a2034;
+}
+
+.players-page .btn-danger {
+  background-color: #8e1836;
+  border-color: #8e1836;
+  border-radius: 999px;
+  font-size: .9rem;
+  padding: .4rem 1.2rem;
+}
+
+.players-page .btn-danger:hover {
+  background-color: #5d0f24;
+  border-color: #5d0f24;
+}
+
+/* 메타 라인에서 팀 이름 줄바꿈 제어 */
+
+.players-card .meta-line {
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+
+.players-card .meta-line .meta-chip:not(.team-chip),
+.players-card .meta-line .dot {
+  flex-shrink: 0;
+}
+
+.players-card .meta-line .team-chip {
+  display: block;
+  flex: 1 1 auto;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 기타 타이포 / 링크 / 보조 텍스트 */
+
+.players-page h5 {
+  font-weight: 800;
+  color: #3b1724;
+}
+
+.players-page .card-body .text-muted.fw-bold {
+  color: #9a7d8d !important;
+}
+
+.players-page .card-body .text-end.small.text-muted {
+  color: #aa8f9e !important;
+}
+
+.players-page .orig-link {
+  color: #8c234f !important;
+}
+
+.players-page .orig-link:hover {
+  color: #5d1634 !important;
+  text-decoration: underline;
+}
+
+/* 페이지네이션 */
+
+.players-page .pagination .page-item.active .page-link {
+  background-color: #a0204c;
+  border-color: #a0204c;
+}
+
+.players-page .pagination .page-link {
+  color: #6b5262;
+}
+
+.players-page .pagination .page-link:hover {
+  background: #fbe4f0;
+  border-color: #efb8d2;
+}
+
+/* 반응형 */
+
+@media (max-width: 576px) {
+  .players-page .page-head .meta {
+    font-size: .75rem;
+  }
+
+  .players-card .meta-chip {
+    font-size: .8rem;
+  }
+
+  .players-page .chips-row {
+    flex-wrap: wrap;
+  }
+}

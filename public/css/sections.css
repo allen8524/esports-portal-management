@@ -1,0 +1,1368 @@
+
+/* 1) 기본 테이블 / 그리드 레이아웃 */
+.match-section .mc-table table,
+.match-section .mc-table tbody,
+.match-section .mc-table tr {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.match-section .mc-table tr {
+  display: grid !important;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+
+/* 공통 셀 */
+.match-section .mc-table td {
+  border: none;
+  padding: 12px 16px;
+}
+
+/* 2) 팀 셀: VS 쪽으로 로고 끌어오기 */
+.match-section .mc-table td.left-team,
+.match-section .mc-table td.right-team {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* 왼쪽 팀: 셀의 오른쪽(중앙 방향)에 붙이기 */
+.match-section .mc-table td.left-team {
+  align-items: flex-end !important;
+  text-align: right !important;
+  padding: 12px 40px 12px 16px !important;
+}
+
+/* 오른쪽 팀: 셀의 왼쪽(중앙 방향)에 붙이기 */
+.match-section .mc-table td.right-team {
+  align-items: flex-start !important;
+  text-align: left !important;
+  padding: 12px 16px 12px 40px !important;
+}
+
+/* 팀 이름 텍스트는 셀 정렬을 그대로 따르게 */
+.match-section .mc-table td.left-team h6,
+.match-section .mc-table td.right-team h6 {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.35;
+  white-space: normal;
+  word-break: keep-all;
+  text-align: inherit;
+}
+
+/* 가운데 VS 블록 */
+.match-section .mc-table .mt-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.match-section .mc-table .mt-content h4 {
+  margin: 4px 0;
+}
+
+.match-section .mc-table .mt-content .mc-op {
+  font-size: 0.8rem;
+}
+
+/* 3) 로고 박스 디자인(T1 아이콘 느낌) */
+/* 로고 박스 스타일 */
+.match-section .match-logo-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 68px;
+  height: 68px;
+  border-radius: 18px;
+  margin-bottom: 6px;
+
+  background: radial-gradient(circle at 50% 35%,
+      #dfe3f0 0%,
+      #b3bacb 40%,
+      #1a1f2b 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 14px 32px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(0, 0, 0, 0.6) inset;
+
+  overflow: hidden;
+  /* 추가: 로고가 박스 밖으로 안 나가게 */
+}
+
+/* 로고 이미지 스타일 (디자인 그대로 유지) */
+.match-section .match-logo-box img {
+  max-width: 78%;
+  max-height: 78%;
+  display: inline-block;
+  object-fit: contain;
+  border-radius: 14px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.45);
+}
+
+/* 로고 이미지 자체 */
+.match-section .mc-table td.left-team img,
+.match-section .mc-table td.right-team img {
+  float: none !important;
+  /* 기존 float 제거 */
+  display: block;
+  margin: 0 0 8px 0 !important;
+  /* 남는 여백은 아래로만 */
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+/* 4) 반응형 */
+@media (max-width: 767.98px) {
+  .match-section .mc-table tr {
+    grid-template-columns: 1fr 1.2fr 1fr;
+  }
+
+  .match-section .match-logo-box {
+    width: 56px;
+    height: 56px;
+  }
+
+  .match-section .mc-table td.left-team img,
+  .match-section .mc-table td.right-team img {
+    width: 52px;
+    height: 52px;
+  }
+
+  .match-section .mc-table td.left-team h6,
+  .match-section .mc-table td.right-team h6 {
+    font-size: 0.85rem;
+  }
+}
+/* =========================================================
+   공통 섹션 유틸리티
+========================================================= */
+
+.section-title {
+  position: relative;
+  padding-bottom: 16px;
+  margin-bottom: 30px;
+}
+
+.section-title::before,
+.section-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+}
+
+.section-title::before {
+  width: 70px;
+  background: var(--primary);
+  z-index: 1;
+}
+
+.section-title::after {
+  width: 100%;
+  background: var(--surface-100);
+}
+
+.section-title h3 {
+  font-size: 28px;
+  color: var(--ink-900);
+  font-weight: 300;
+}
+
+.section-title h3 span {
+  font-weight: 700;
+}
+
+.section-title.sidebar-title::before,
+.section-title.sidebar-title::after {
+  height: 2px;
+}
+
+.section-title.sidebar-title h5 {
+  font-size: 20px;
+  color: var(--ink-900);
+  font-weight: 500;
+}
+
+/* 섹션 공통 배경/간격 */
+
+.set-bg {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.spad {
+  padding: 100px 0;
+}
+
+.spad-2 {
+  padding: 50px 0 70px;
+}
+
+.text-white :is(h1, h2, h3, h4, h5, h6, p, span, li, a) {
+  color: #fff;
+}
+
+
+/* =========================================================
+   Hero 섹션 (hero.blade.php)
+========================================================= */
+
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* 기본 dim 처리 */
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 밝기 강도 조절용 헬퍼 클래스 */
+.hero-dim-30::before {
+  background: rgba(0, 0, 0, 0.30);
+}
+
+.hero-dim-45::before {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.hero-dim-70::before {
+  background: rgba(0, 0, 0, 0.70);
+}
+
+.hero-section > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Hero 텍스트 정렬 */
+
+.hs-item,
+.hs-text {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+}
+
+.hs-item .hs-text {
+  text-align: center;
+}
+
+.hs-item .hs-text h4 {
+  color: #ffffff;
+  margin-bottom: 25px;
+}
+
+.hs-item .hs-text h2 {
+  font-size: 48px;
+  color: #ffffff;
+  font-weight: 700;
+  margin-bottom: 32px;
+}
+
+.hs-text h2,
+.hs-text h4,
+.hs-text div {
+  color: #ffffff !important;
+}
+
+.hs-text span {
+  color: #ff3d3d !important;
+}
+
+/* Hero CTA 버튼 */
+
+.primary-btn {
+  display: inline-block;
+  padding: 12px 26px;
+  background: #e0082d;
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 3px;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+.primary-btn:hover {
+  background: #b00623;
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   Trending News 섹션 (trending.blade.php)
+========================================================= */
+
+.trending-news-section {
+  position: relative;
+  background: var(--ink-900);
+  padding: 18px 0;
+}
+
+.trending-news-section .tn-title {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  width: 32%;
+  height: 100%;
+  background: var(--primary);
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 500;
+  text-align: right;
+  padding: 14px 75px 0 0;
+}
+
+.trending-news-section .news-slider.owl-carousel .owl-nav {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.trending-news-section .news-slider.owl-carousel .owl-nav button {
+  width: 22px;
+  height: 22px;
+  line-height: 22px;
+  border: 1px solid #8a8b8c;
+  background: #151618;
+  font-size: 12px;
+  color: #ababab;
+  margin-left: 10px;
+}
+
+.trending-news-section .news-slider .nt-item {
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: 500;
+  padding-left: 265px;
+}
+
+
+/* =========================================================
+   Match 리스트 섹션 (match.blade.php - ms-content)
+========================================================= */
+
+.ms-content h4 {
+  color: #ffffff;
+  font-weight: 500;
+  margin-bottom: 25px;
+}
+
+.ms-content .mc-table {
+  margin-bottom: 10px;
+}
+
+.ms-content .mc-table table {
+  width: 100%;
+}
+
+.ms-content .mc-table tr {
+  background: rgba(21, 22, 24, 0.9);
+  margin-bottom: 10px;
+}
+
+.ms-content .mc-table td {
+  width: 200px;
+  padding: 16px 0;
+}
+
+.ms-content .mc-table td img {
+  width: 50px;
+  height: 30px;
+}
+
+.ms-content .mc-table td h6 {
+  color: #ffffff;
+  display: inline-block;
+}
+
+.ms-content .mc-table td.left-team {
+  padding-left: 40px;
+}
+
+.ms-content .mc-table td.left-team img {
+  float: left;
+  margin-right: 10px;
+}
+
+.ms-content .mc-table td.left-team h6 {
+  line-height: 30px;
+  overflow: hidden;
+}
+
+.ms-content .mc-table td.right-team {
+  text-align: right;
+  padding-right: 40px;
+}
+
+.ms-content .mc-table td.right-team img {
+  float: right;
+  margin-left: 10px;
+}
+
+.ms-content .mc-table td.right-team h6 {
+  float: right;
+  line-height: 30px;
+}
+
+.ms-content .mc-table td.mt-content {
+  width: 150px;
+  text-align: center;
+}
+
+.ms-content .mc-table td.mt-content .mc-op {
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.ms-content .mc-table td.mt-content h4 {
+  color: #ffffff;
+  font-weight: 700;
+  margin: 14px 0 12px;
+}
+
+
+/* =========================================================
+   Highlight / Soccer 섹션 (match + latest 조합)
+========================================================= */
+
+.soccer-section {
+  padding: 70px 0;
+}
+
+.soccer-section .col-lg-12,
+.soccer-section .col-lg-3 {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
+
+.soccer-item {
+  position: relative;
+  height: 405px;
+  margin-bottom: 10px;
+}
+
+.soccer-item .si-tag {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  display: inline-block;
+  padding: 3px 9px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: var(--primary);
+}
+
+.soccer-item .si-text {
+  position: absolute;
+  left: 0;
+  bottom: 25px;
+  width: 100%;
+  padding: 0 30px;
+}
+
+.soccer-item .si-text h5 {
+  margin-bottom: 6px;
+}
+
+.soccer-item .si-text h5 a {
+  color: #ffffff;
+  font-weight: 500;
+  line-height: 26px;
+}
+
+.soccer-item .si-text ul li {
+  display: inline-block;
+  list-style: none;
+  font-size: 13px;
+  color: #ffffff;
+  margin-right: 20px;
+  position: relative;
+}
+
+.soccer-item .si-text ul li::after {
+  content: "|";
+  position: absolute;
+  right: -12px;
+  top: 0;
+}
+
+.soccer-item .si-text ul li:last-child {
+  margin-right: 0;
+}
+
+.soccer-item .si-text ul li:last-child::after {
+  display: none;
+}
+
+
+/* =========================================================
+   Latest 섹션 (latest.blade.php)
+========================================================= */
+
+.latest-section {
+  padding-bottom: 30px;
+}
+
+.section-title.latest-title h3 {
+  float: left;
+}
+
+.section-title.latest-title ul {
+  text-align: right;
+}
+
+.section-title.latest-title ul li {
+  display: inline-block;
+  list-style: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-900);
+  padding: 4px 12px;
+  background: var(--surface-100);
+  margin-right: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.section-title.latest-title ul li:last-child {
+  margin-right: 0;
+}
+
+.section-title.latest-title ul li:hover {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+/* Latest 섹션 탭 형태(텍스트 탭) */
+
+.section-title.latest-title .news-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.125rem;
+  margin: 0.125rem 0 0;
+  font-size: 0.5rem;
+  line-height: 1.2;
+}
+
+.section-title.latest-title .news-tabs li {
+  list-style: none;
+  font-size: 2.5em;
+}
+
+.section-title.latest-title .news-tabs li a {
+  display: block;
+  padding: 0.2rem 0.3rem;
+  border-radius: 9999px;
+}
+
+
+/* =========================================================
+   Latest / Popular 공용 뉴스 아이템 (.news-item)
+========================================================= */
+
+.news-item {
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.news-item.left-news .ni-pic {
+  float: none;
+  height: 240px;
+  position: relative;
+}
+
+.news-item.left-news .ni-pic .ni-tag {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  display: inline-block;
+  padding: 3px 9px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: var(--primary);
+}
+
+.news-item.left-news .ni-text {
+  padding-top: 25px;
+  overflow: visible;
+}
+
+.news-item.left-news .ni-text h4 {
+  margin-bottom: 15px;
+}
+
+.news-item.left-news .ni-text h4 a {
+  color: var(--ink-900);
+  line-height: 32px;
+  font-weight: 500;
+}
+
+.news-item.left-news .ni-text ul {
+  margin-bottom: 20px;
+}
+
+.news-item.left-news .ni-text p {
+  font-size: 14px;
+  color: var(--ink-700);
+  line-height: 24px;
+}
+
+.news-item .ni-pic {
+  float: left;
+  margin-right: 20px;
+}
+
+.news-item .ni-pic img {
+  width: 100px;
+  height: 100px;
+}
+
+.news-item .ni-text {
+  overflow: hidden;
+  padding-top: 6px;
+}
+
+.news-item .ni-text h5 {
+  margin-bottom: 8px;
+}
+
+.news-item .ni-text h5 a {
+  color: var(--ink-900);
+  font-weight: 500;
+  line-height: 26px;
+}
+
+.news-item .ni-text ul {
+  white-space: nowrap;
+}
+
+.news-item .ni-text ul li {
+  display: inline-block;
+  list-style: none;
+  font-size: 12px;
+  color: #ababab;
+  margin-right: 20px;
+  position: relative;
+}
+
+.news-item .ni-text ul li i {
+  color: var(--primary);
+}
+
+.news-item .ni-text ul li::after {
+  content: "|";
+  position: absolute;
+  right: -12px;
+  top: 0;
+}
+
+.news-item .ni-text ul li:last-child {
+  margin-right: 0;
+}
+
+.news-item .ni-text ul li:last-child::after {
+  display: none;
+}
+
+
+/* =========================================================
+   Points Table (주로 latest / match 사이드바)
+========================================================= */
+
+.points-table table {
+  width: 100%;
+  table-layout: auto;
+}
+
+.points-table thead th {
+  background: #2c2d2f;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 14px 0 13px;
+}
+
+.points-table thead th.th-o {
+  text-align: center;
+}
+
+.points-table tbody {
+  border: 1px solid var(--surface-200);
+  border-top: none;
+  border-bottom: none;
+}
+
+.points-table tbody tr {
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.points-table tbody td {
+  font-size: 14px;
+  color: var(--ink-700);
+  text-align: center;
+  padding: 12px 0;
+}
+
+.points-table tbody td.team-name {
+  text-align: left;
+  width: 130px;
+}
+
+.points-table tbody td.team-name img {
+  width: 36px;
+  height: 22px;
+  margin-right: 6px;
+  display: inline-block;
+}
+
+.points-table tbody td.team-name span {
+  display: inline-block;
+  font-size: 14px;
+  color: var(--ink-800);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.points-table .p-all {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 1px;
+  background: #dd1515;
+}
+
+/* Latest 섹션 안에 있는 포인트 테이블 썸네일 크기 조정 */
+.latest-section .points-table .team-name img {
+  width: 24px;
+  height: 24px;
+  display: block;
+  flex-shrink: 0;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+
+/* =========================================================
+   Video 섹션 (video.blade.php)
+========================================================= */
+
+.video-section {
+  margin-bottom: 70px;
+}
+
+.video-slider.owl-carousel {
+  margin-right: 0;
+}
+
+.video-slider.owl-carousel .col-lg-3 {
+  max-width: 100%;
+}
+
+.video-slider.owl-carousel .owl-nav {
+  position: absolute;
+  right: 15px;
+  top: -78px;
+}
+
+.video-slider.owl-carousel .owl-nav button {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border: 1px solid var(--surface-300);
+  font-size: 20px;
+  color: var(--ink-700);
+  transition: 0.3s;
+  margin-right: 10px;
+}
+
+.video-slider.owl-carousel .owl-nav button:last-child {
+  margin-right: 0;
+}
+
+.video-slider.owl-carousel .owl-nav button:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #ffffff;
+}
+
+.video-item {
+  position: relative;
+  height: 200px;
+}
+
+.video-item:hover .play-btn {
+  opacity: 1;
+  visibility: visible;
+}
+
+.video-item .vi-title {
+  position: absolute;
+  left: 0;
+  top: 15px;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.video-item .vi-title h5 {
+  color: #ffffff;
+  font-weight: 500;
+  line-height: 26px;
+}
+
+.video-item .play-btn {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-20px, -20px);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+}
+
+.video-item .vi-time {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* 비디오 카드 테두리 / 호버 */
+.video-section .video-item {
+  border: 1px solid #cacaca;
+  border-radius: 0.1rem;
+  overflow: hidden;
+  transition: border-color 0.1s ease, box-shadow 0.1s ease;
+}
+
+.video-section .video-item:hover {
+  box-shadow: 0 0 0 1px #cacaca;
+}
+
+
+/* =========================================================
+   Popular 섹션 (popular.blade.php)
+========================================================= */
+
+/* 큰 썸네일 스타일 */
+.news-item.popular-item {
+  position: relative;
+  height: 240px;
+}
+
+.news-item.popular-item .ni-tag {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  display: inline-block;
+  padding: 3px 9px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: var(--primary);
+}
+
+.news-item.popular-item .ni-tag.tenis {
+  background: #0054a6;
+}
+
+.news-item.popular-item .ni-tag.football {
+  background: #e3ce1e;
+}
+
+.news-item.popular-item .ni-text {
+  position: absolute;
+  left: 0;
+  bottom: 16px;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.news-item.popular-item .ni-text h5 a,
+.news-item.popular-item .ni-text ul li,
+.news-item.popular-item .ni-text ul li i {
+  color: #ffffff;
+}
+
+
+/* SNS 팔로우 블록 (follow-links) */
+
+.follow-links {
+  margin-bottom: 70px;
+}
+
+.follow-links ul li {
+  list-style: none;
+  overflow: hidden;
+  padding: 12px 16px 10px 20px;
+  margin-bottom: 10px;
+}
+
+.follow-links ul li.facebook {
+  background: #506eaa;
+}
+
+.follow-links ul li.twitter {
+  background: #55acee;
+}
+
+.follow-links ul li.google {
+  background: #dd4b39;
+}
+
+.follow-links ul li i {
+  float: left;
+  font-size: 14px;
+  color: #ffffff;
+  line-height: 24px;
+}
+
+.follow-links .fl-name {
+  position: relative;
+  float: left;
+  margin-left: 32px;
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.follow-links .fl-name::after {
+  content: "";
+  position: absolute;
+  left: -15px;
+  top: -2px;
+  width: 1px;
+  height: 26px;
+  background: #ffffff;
+}
+
+.follow-links .fl-fan {
+  float: right;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+
+/* 투표 카드 (vote-option) */
+
+.vote-option {
+  height: 290px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+}
+
+.vote-option .vo-text {
+  height: 100%;
+  padding: 42px 0 0 30px;
+  position: relative;
+  z-index: 1;
+}
+
+.vote-option .vo-text h5 {
+  color: #ffffff;
+  font-weight: 700;
+  line-height: 26px;
+  margin-bottom: 20px;
+}
+
+.vote-option .vt-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.45);
+  transition: background 0.18s ease, transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.vote-option .vt-item input {
+  position: absolute;
+  visibility: hidden;
+}
+
+.vote-option .vt-item input[type="radio"] {
+  margin: 0;
+  width: 16px;
+  height: 16px;
+  accent-color: #f9d66a;
+}
+
+.vote-option .vt-item label {
+  position: relative;
+  padding-left: 22px;
+  font-size: 0.9rem;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.vote-option .vt-item label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+}
+
+.vote-option .vt-item input[type="radio"]:checked + label::before {
+  background: #ffffff;
+}
+
+.vote-option .vt-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.vote-option .vt-item.is-selected {
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.13), transparent 55%),
+    linear-gradient(120deg, rgba(48, 37, 10, 0.95), rgba(103, 75, 18, 0.95));
+  box-shadow:
+    0 0 0 1px rgba(249, 214, 106, 0.92),
+    0 0 22px rgba(249, 214, 106, 0.55);
+  transform: translateY(-1px);
+}
+
+.vote-option .vt-item.is-selected label {
+  color: #fff9e8;
+}
+
+.vote-option .vt-item.is-selected input[type="radio"] {
+  accent-color: #ffd369;
+}
+
+.vote-option .vote-sparkle {
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  width: 42px;
+  height: 42px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background:
+    conic-gradient(from 0deg,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 223, 141, 1),
+      rgba(255, 245, 196, 0.95),
+      rgba(255, 255, 255, 0));
+  opacity: 0;
+  pointer-events: none;
+  filter: blur(0.5px);
+  animation: voteSparkleGold 0.7s ease-out forwards;
+}
+
+@keyframes voteSparkleGold {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%) scale(0.4) rotate(-10deg);
+  }
+
+  35% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.05) rotate(8deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-50%) scale(0.7) rotate(32deg);
+  }
+}
+
+/* popular 섹션 전용: 배경 이미지와 선택된 항목만 남기는 애니메이션 */
+
+.popular-section .vote-option {
+  position: relative;
+  overflow: hidden;
+}
+
+.popular-section .vote-option::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--vote-bg, none);
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 0.45s ease-out;
+  z-index: 0;
+}
+
+.popular-section .vote-option .vo-text {
+  position: relative;
+  z-index: 1;
+}
+
+.popular-section .vote-option.is-bg-visible::before {
+  opacity: 1;
+}
+
+.popular-section .vote-option .vt-item {
+  transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+}
+
+.popular-section .vote-option.hide-vote-items .vt-item {
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+}
+
+.popular-section .vote-option.hide-vote-items .vt-item.is-selected {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.popular-section .vote-option.hide-vote-items .vt-item.is-selected input[type="radio"] {
+  display: none;
+}
+
+.popular-section .vote-option.hide-vote-items .vt-item.is-selected label {
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+}
+
+
+/* JS용: 팀 / 선수 투표 레이아웃 */
+
+.js-team-vote .vt-item,
+.js-player-vote .vt-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 22px;
+  border-radius: 999px;
+}
+
+.js-team-vote .vt-item::before {
+  content: "";
+  width: 28px;
+  height: 28px;
+  background-image: var(--team-logo);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.js-team-vote .vt-item.is-selected::before {
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.7));
+}
+
+.vote-option.js-player-vote {
+  position: relative;
+  overflow: hidden;
+}
+
+.vote-option.js-player-vote .vo-text .vt-item {
+  transition: transform 0.6s ease, bottom 0.6s ease, opacity 0.4s ease;
+}
+
+.vote-option.js-player-vote.hide-vote-items .vo-text .vt-item,
+.vote-option.js-team-vote.hide-vote-items .vo-text .vt-item {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.vote-option.js-player-vote.hide-vote-items .vo-text .vt-item.is-selected,
+.vote-option.js-team-vote.hide-vote-items .vo-text .vt-item.is-selected {
+  opacity: 1;
+  pointer-events: auto;
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  max-width: calc(100% - 40px);
+}
+
+.js-player-vote .vo-text h5 {
+  color: #ffffff;
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.8),
+    0 0 4px rgba(0, 0, 0, 0.6);
+}
+
+.vote-option .vo-text .vt-item label {
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   Patch Notes 섹션 (patch_notes.blade.php)
+========================================================= */
+
+.patch-section .patch-item {
+  border: 0.5px solid #cacaca;
+  border-radius: 0.1rem;
+  transition: border-color 0.1s ease, box-shadow 0.1s ease;
+}
+
+.patch-section .patch-item:hover {
+  border-color: #cacaca;
+  box-shadow: 0 0 0 0.5px #cacaca;
+}
+
+/* 전체 Patch Notes 페이지용 라인(필요시 사용) */
+.patch-notes-page .patch-row {
+  border: 1px solid #cacaca;
+  border-radius: 4px;
+  padding: 8px 0;
+}
+
+
+/* =========================================================
+   반응형 보정
+========================================================= */
+
+@media (min-width: 1301px) and (max-width: 1750px) {
+  .trending-news-section .tn-title {
+    width: 25%;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1300px) {
+  .trending-news-section .tn-title {
+    width: 22%;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .ms-content .mc-table td.left-team {
+    padding-left: 15px;
+  }
+
+  .ms-content .mc-table td.right-team {
+    padding-right: 15px;
+  }
+
+  .trending-news-section .tn-title {
+    width: 25%;
+  }
+}
+
+@media (max-width: 991px) {
+  .vote-option {
+    margin-bottom: 30px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .trending-news-section .tn-title {
+    padding-right: 50px;
+  }
+
+  .trending-news-section .news-slider .nt-item {
+    padding-left: 225px;
+  }
+
+  .trending-news-section .news-slider.owl-carousel .owl-nav {
+    right: -35px;
+  }
+}
+
+@media (max-width: 767px) {
+  .ms-content .mc-table td.left-team {
+    padding-left: 15px;
+  }
+
+  .ms-content .mc-table td.right-team {
+    padding-right: 15px;
+  }
+
+  .section-title.latest-title h3 {
+    float: none;
+  }
+
+  .section-title.latest-title ul {
+    text-align: left;
+    padding-top: 10px;
+  }
+
+  .section-title.latest-title ul li {
+    margin-bottom: 5px;
+  }
+
+  .trending-news-section .tn-title {
+    display: none;
+  }
+
+  .trending-news-section .news-slider.owl-carousel .owl-nav {
+    display: none;
+  }
+
+  .trending-news-section .news-slider .nt-item {
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .section-title.latest-title .news-tabs {
+    font-size: 0.5rem;
+  }
+}
+
+@media (max-width: 479px) {
+  .ms-content .mc-table td h6 {
+    font-size: 12px;
+  }
+
+  .video-item {
+    height: 300px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .vote-option .vt-item {
+    padding: 6px 10px;
+  }
+}

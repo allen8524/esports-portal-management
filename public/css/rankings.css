@@ -1,0 +1,305 @@
+.rankings-page .page-head-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.rankings-page .meta-chips {
+  gap: .4rem;
+}
+
+.rankings-page .meta-chip {
+  padding: 0.18rem .6rem;
+  border-radius: 999px;
+  font-size: .75rem;
+  background: #f3f4ff;
+  color: #434a7b;
+  border: 1px solid #e0e3ff;
+}
+
+.rankings-page .filter-card {
+  border-radius: .9rem;
+  border: 0;
+  background: #f8f9fc;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, .06);
+}
+
+.rankings-page .filter-card .form-label {
+  font-size: .8rem;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.sticky-head thead th {
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  z-index: 1;
+  box-shadow: 0 2px 0 rgba(15, 23, 42, .04);
+}
+
+.rankings-page .rankings-card {
+  border-radius: .9rem;
+  border: 0;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, .08);
+  overflow: hidden;
+}
+
+.rankings-page .rankings-card table {
+  margin-bottom: 0;
+}
+
+.rankings-page .rankings-card thead tr {
+  background: #f3f4f6;
+}
+
+.rankings-page .rankings-card thead th {
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: #6b7280;
+  border-bottom-width: 1px;
+}
+
+.rankings-page .rankings-card tbody tr:nth-child(odd) {
+  background: #fcfcff;
+}
+
+.rankings-page .rankings-card tbody tr:hover {
+  background: #f5f3ff;
+}
+
+.winrate {
+  font-variant-numeric: tabular-nums;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.pos {
+  color: #1ca85e;
+  font-weight: 600;
+}
+
+.neg {
+  color: #d9534f;
+  font-weight: 600;
+}
+
+
+
+.rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  padding: .25rem .7rem;
+  border-radius: 999px;
+  font-size: .8rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #6b1b3f, #a64263);
+  border: 1px solid #a64263;
+}
+
+.rankings-page .table-hover tbody tr:hover .rank-badge {
+  transform: translateY(-1px);
+}
+
+.rankings-page .table-hover tbody tr:hover td {
+  transition: background-color .12s ease;
+}
+
+.rankings-page .col-rank {
+  width: 72px;
+}
+
+.rankings-page .col-team {
+  width: auto;
+}
+
+.rankings-page .col-wl {
+  width: 130px;
+}
+
+.rankings-page .col-winrate {
+  width: 100px;
+}
+
+.rankings-page .col-setwl {
+  width: 150px;
+}
+
+.rankings-page .col-diff {
+  width: 80px;
+}
+
+.rankings-page {
+  background: #fdf5fa;
+}
+
+.rankings-page .page-head-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #8a2852;
+}
+
+.rankings-page .meta-chips {
+  gap: .35rem;
+  margin-top: .15rem;
+}
+
+.rankings-page .meta-chip {
+  font-size: .78rem;
+  padding: .15rem .7rem;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid #f0cfe0;
+  color: #8a2852;
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+}
+
+.rankings-page .filter-card {
+  border: 0;
+  border-radius: 18px;
+  background: #fff7fb;
+  box-shadow: 0 14px 36px rgba(193, 22, 88, 0.06);
+}
+
+.rankings-page .filter-card .form-label {
+  font-size: .75rem;
+  color: #ad6a8c;
+}
+
+.rankings-page .filter-card .form-control,
+.rankings-page .filter-card .form-select {
+  font-size: .85rem;
+  border-radius: 999px;
+  border-color: #f0d4e3;
+}
+
+.rankings-page .filter-card .form-control:focus,
+.rankings-page .filter-card .form-select:focus {
+  border-color: #c11658;
+  box-shadow: 0 0 0 .12rem rgba(193, 22, 88, 0.25);
+}
+
+.rankings-page .filter-card .btn-primary {
+  border-radius: 999px;
+  font-size: .85rem;
+  background: #c11658;
+  border-color: #c11658;
+}
+
+.rankings-page .filter-card .btn-primary:hover {
+  background: #8a2852;
+  border-color: #8a2852;
+}
+
+.rankings-page .rankings-card {
+  border: 0;
+  border-radius: 20px;
+  box-shadow: 0 18px 48px rgba(193, 22, 88, 0.06);
+  overflow: hidden;
+}
+
+.rankings-page .rankings-card thead {
+  background: linear-gradient(90deg, #fbe3f3, #f4e4f9);
+}
+
+.rankings-page .rankings-card thead th {
+  border-bottom: none;
+  font-size: .8rem;
+  font-weight: 600;
+  color: #7b3455;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  padding-top: .6rem;
+  padding-bottom: .6rem;
+}
+
+.rankings-page .rankings-card tbody tr {
+  font-size: .9rem;
+}
+
+.rankings-page .rankings-card tbody tr:hover {
+  background: #fff7fd;
+}
+
+.rankings-page .rank-badge {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: #8a2852;
+  color: #ffffff;
+  font-size: .78rem;
+  font-weight: 600;
+}
+
+.rankings-page .team-link {
+  color: #2c1825;
+  text-decoration: none;
+}
+
+.rankings-page .team-link:hover {
+  color: #8a2852;
+}
+
+.rankings-page .team-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid #f0d4e3;
+  padding: 2px;
+}
+
+.rankings-page .nowrap {
+  white-space: nowrap;
+}
+
+.rankings-page .winrate {
+  font-weight: 600;
+  color: #8a2852;
+}
+
+.rankings-page .pos {
+  color: #0a9b6b;
+  font-weight: 600;
+}
+
+.rankings-page .neg {
+  color: #c11658;
+  font-weight: 600;
+}
+
+.rankings-page .form-check-label {
+  color: #8a2852;
+}
+
+@media (max-width: 767.98px) {
+  .rankings-page .page-head-title {
+    font-size: 1.3rem;
+  }
+
+  .rankings-page .rankings-card thead {
+    font-size: .78rem;
+  }
+}
+
+.rankings-page .filter-card .filter-label {
+  font-size: .8rem;
+  font-weight: 500;
+  color: var(--accent-600, #c11658);
+  white-space: nowrap;
+}
+
+.rankings-page .filter-card .filter-field select {
+  min-width: 120px;
+}

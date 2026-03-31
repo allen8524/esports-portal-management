@@ -1,0 +1,257 @@
+/* =========================================================
+= 0) Fonts & Design Tokens
+========================================================= */
+
+@font-face {
+  font-family: 'Paperozi';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-1Thin.woff2') format('woff2');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Paperozi';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-2ExtraLight.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Paperozi';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-3Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Paperozi';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Paperozi';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-5Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Paperozi';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Paperozi';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Paperozi';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Paperozi';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-9Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-serif: 'Paperozi', 'Noto Sans KR', 'Apple SD Gothic Neo', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --primary: #dd1515;
+  --primary-ink: #fff;
+
+  --ink-900: #151618;
+  --ink-800: #2d2d2d;
+  --ink-700: #636363;
+  --ink-600: #ababab;
+  --ink-500: #b5b8be;
+
+  --surface-0: #ffffff;
+  --surface-50: #f9fafb;
+  --surface-100: #f2f2f2;
+  --surface-200: #e5e5e5;
+  --surface-300: #d5d5d5;
+
+  --dark-900: #000505;
+  --dark-800: #151618;
+  --dark-700: #2c2d2f;
+
+  --ring: 0 0 0 .2rem;
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, .04);
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, .08);
+  --shadow-md: 0 6px 18px rgba(0, 0, 0, .12);
+  --container-max: 1200px;
+
+  --pip-off: rgba(255, 255, 255, .22);
+  --pip-on: #00ffd1;
+
+  --sel-bg: #fff;
+  --sel-border: #e4e7ea;
+  --sel-radius: 12px;
+  --sel-focus: #0d6efd;
+  --sel-focus-ring: rgba(13, 110, 253, .18);
+  --sel-hover: #fafafa;
+  --sel-shadow: var(--shadow-xs);
+  --sel-arrow: #666;
+}
+
+/* =========================================================
+= 1) Global reset / typography
+========================================================= */
+
+html,
+body {
+  height: 100%;
+  font-family: var(--font-serif);
+  -webkit-font-smoothing: antialiased;
+  background: #faf4f4;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  color: #111;
+  font-weight: 400;
+}
+
+h1 {
+  font-size: 70px;
+}
+
+h2 {
+  font-size: 36px;
+}
+
+h3 {
+  font-size: 30px;
+}
+
+h4 {
+  font-size: 24px;
+}
+
+h5 {
+  font-size: 18px;
+}
+
+h6 {
+  font-size: 16px;
+}
+
+p {
+  font-size: 16px;
+  color: var(--ink-700);
+  line-height: 24px;
+  margin: 0 0 15px;
+}
+
+img {
+  max-width: 100%;
+}
+
+a:hover,
+a:focus {
+  color: #fff;
+  text-decoration: none;
+  outline: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+input:focus,
+select:focus,
+button:focus,
+textarea:focus {
+  outline: 0;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: var(--container-max);
+  }
+}
+/* Global pagination theme */
+
+:root {
+  --pg-accent: #a0204c;      /* 진한 핑크 (활성 원) */
+  --pg-border: #e6dde7;      /* 회색 테두리 */
+  --pg-bg: #ffffff;          /* 기본 배경 */
+  --pg-bg-hover: #fbf5fa;    /* 호버 시 연한 핑크 */
+  --pg-text: #7b5262;        /* 숫자/화살표 기본 색 */
+  --pg-text-muted: #b9a2b4;  /* 비활성 색 */
+}
+
+body .pagination {
+  justify-content: center;
+  gap: .25rem;
+}
+
+body .pagination .page-link {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  margin: 0;
+  border-radius: 999px;
+  border: 1px solid var(--pg-border);
+  background: var(--pg-bg);
+  color: var(--pg-text);
+  font-size: .85rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body .pagination .page-link:hover {
+  background: var(--pg-bg-hover);
+  border-color: #d9c8e0;
+  color: #5a2034;
+}
+
+body .pagination .page-item.active .page-link {
+  background: var(--pg-accent);
+  border-color: var(--pg-accent);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+body .pagination .page-item.disabled .page-link {
+  background: var(--pg-bg);
+  border-color: var(--pg-border);
+  color: var(--pg-text-muted);
+  opacity: .7;
+  cursor: default;
+}
+
+body .pagination .page-link:focus {
+  box-shadow: 0 0 0 0.14rem rgba(160, 32, 76, .35);
+  outline: none;
+}

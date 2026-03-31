@@ -1,0 +1,556 @@
+/* 뉴스 폼 공통 */
+
+.news-form {
+  border-radius: 18px;
+  padding: 18px 20px 16px;
+  background: #fff;
+  border: 1px solid #f3d7e6;
+  box-shadow: 0 12px 32px rgba(193, 22, 88, 0.06);
+}
+
+.news-form .form-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #8a2852;
+}
+
+.news-form .form-control,
+.news-form .form-select {
+  border-radius: 999px;
+  border-color: #eed8e6;
+  font-size: 0.9rem;
+}
+
+.news-form textarea[name="content"] {
+  border-radius: 14px;
+  line-height: 1.6;
+}
+
+.news-form .form-control:focus,
+.news-form .form-select:focus {
+  border-color: #c11658;
+  box-shadow: 0 0 0 0.1rem rgba(193, 22, 88, 0.2);
+}
+
+.news-form .form-text {
+  font-size: 0.78rem;
+  color: #b37a9b;
+}
+
+.news-form .pinned-check {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.news-form .pinned-check .form-check-input {
+  border-radius: 999px;
+  border-color: #e5bfd7;
+}
+
+.news-form .pinned-check .form-check-input:checked {
+  background-color: #c11658;
+  border-color: #c11658;
+}
+
+.news-form .pinned-check .form-check-label {
+  font-size: 0.85rem;
+  color: #8a2852;
+}
+
+.news-form .news-save-btn {
+  border-radius: 999px;
+  padding: 0.4rem 1.4rem;
+  font-weight: 600;
+  background: #c11658;
+  border-color: #c11658;
+}
+
+.news-form .news-save-btn:hover {
+  background: #a41149;
+  border-color: #a41149;
+}
+
+/* 목록 */
+
+.news-page {
+  background: #fdf5fa;
+}
+
+.news-page .page-head h3 {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #8a2852;
+}
+
+.news-page .page-head .btn-primary {
+  border-radius: 999px;
+  padding: 0.35rem 1rem;
+  font-weight: 600;
+  background: #c11658;
+  border-color: #c11658;
+}
+
+.news-page .page-head .btn-primary:hover {
+  background: #a11146;
+  border-color: #a11146;
+}
+
+.news-page .news-filter {
+  border-radius: 18px;
+  padding: 12px 16px 10px;
+  background: #ffffff;
+  border: 1px solid #f3d7e6;
+  box-shadow: 0 10px 30px rgba(193, 22, 88, 0.06);
+}
+
+.news-page .news-filter .form-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #8a2852;
+  margin-bottom: .2rem;
+}
+
+.news-page .news-filter .form-control,
+.news-page .news-filter .form-select {
+  border-radius: 999px;
+  border-color: #ecd7e3;
+  font-size: 0.9rem;
+}
+
+.news-page .news-filter .form-control:focus,
+.news-page .news-filter .form-select:focus {
+  border-color: #c11658;
+  box-shadow: 0 0 0 0.1rem rgba(193, 22, 88, 0.2);
+}
+
+.news-page .news-filter .btn-primary {
+  background: #c11658;
+  border-color: #c11658;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.news-page .news-filter .btn-primary:hover {
+  background: #a11146;
+  border-color: #a11146;
+}
+
+.news-page .news-card {
+  border: 1px solid #f5dcea;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 12px 32px rgba(193, 22, 88, 0.05);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.news-page .news-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(193, 22, 88, 0.12);
+  border-color: #e2b3d0;
+}
+
+.news-page .news-card .thumb-wrap {
+  position: relative;
+  padding-top: 56.25%;
+  overflow: hidden;
+  background: linear-gradient(135deg, #fbe8f2, #f8f2ff);
+}
+
+.news-page .news-card .thumb-wrap img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.news-page .news-card .card-body {
+  padding: 0.9rem 1rem 0.75rem;
+}
+
+.news-page .news-card .card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #51152e;
+}
+
+.news-page .news-card .news-excerpt {
+  font-size: 0.85rem;
+  color: #7b5b6f;
+}
+
+.news-page .badge-pin {
+  background: #ffe8f2;
+  color: #c11658;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.72rem;
+}
+
+.news-page .badge-src {
+  background: #f3effa;
+  color: #6b3bbf;
+  border-radius: 999px;
+  font-size: 0.72rem;
+}
+
+.news-page .badge.bg-secondary {
+  background: #f0e4f4 !important;
+  color: #8a2852;
+  border-radius: 999px;
+  font-size: 0.72rem;
+}
+
+.news-page .news-card .card-footer {
+  background: transparent;
+  border-top: none;
+  padding: 0.35rem 1rem 0.9rem;
+}
+
+.news-page .news-card .card-footer .btn {
+  border-radius: 999px;
+  padding: 0.2rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #c11658;
+  border-color: #f0bfd8;
+  background: #ffffff;
+}
+
+.news-page .news-card .card-footer .btn:hover {
+  background: #c11658;
+  border-color: #c11658;
+  color: #ffffff;
+}
+
+.news-page .pagination .page-link {
+  border-radius: 999px;
+  border-color: #f0d5e7;
+  color: #8a2852;
+}
+
+.news-page .pagination .page-item.active .page-link {
+  background: #c11658;
+  border-color: #c11658;
+  color: #ffffff;
+}
+
+/* 상세 */
+
+.news-show {
+  background: #fdf5fa;
+}
+
+.news-show .news-article {
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 16px 40px rgba(193, 22, 88, 0.06);
+}
+
+.news-show .news-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #8a2852;
+}
+
+.news-show .news-meta {
+  font-size: .85rem;
+  color: #9b6a88;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem;
+}
+
+.news-show .news-meta span + span::before {
+  content: "·";
+  margin: 0 .3rem 0 .1rem;
+  color: #d0a4be;
+}
+
+.news-show .badge-cat {
+  background: #ffe8f3;
+  color: #c11658;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.news-show .badge-src {
+  background: #f3effa;
+  color: #6b3bbf;
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+.news-show .news-cover img {
+  border-radius: 18px;
+  display: block;
+  width: 100%;
+}
+
+.news-show .news-content {
+  font-size: .95rem;
+  line-height: 1.8;
+  color: #3b2434;
+}
+
+.news-show .news-content h2,
+.news-show .news-content h3,
+.news-show .news-content h4 {
+  margin-top: 1.4rem;
+  margin-bottom: .6rem;
+  font-weight: 600;
+  color: #8a2852;
+}
+
+.news-show .news-content p {
+  margin-bottom: .9rem;
+}
+
+.news-show .btn-outline-primary {
+  border-radius: 999px;
+  border-color: #e2b3cf;
+  color: #c11658;
+  font-weight: 600;
+  padding: .25rem .9rem;
+  font-size: .8rem;
+}
+
+.news-show .btn-outline-primary:hover {
+  background: #c11658;
+  border-color: #c11658;
+  color: #ffffff;
+}
+
+.news-show .news-footer-actions {
+  max-width: 880px;
+  margin: 1rem auto 0;
+  justify-content: flex-end;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+.news-show .news-footer-actions .btn {
+  border-radius: 999px;
+  font-size: .8rem;
+  padding: .25rem .9rem;
+}
+
+.news-show .btn-outline-secondary {
+  border-radius: 999px;
+}
+/* 뉴스 폼 버튼 스타일 통일 */
+.news-form .news-save-btn,
+.news-form .news-delete-btn {
+  border-radius: 999px;
+  padding: 0.4rem 1.4rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* 저장 버튼 */
+.news-form .news-save-btn {
+  background: #c11658;
+  border-color: #c11658;
+  color: #ffffff;
+}
+
+.news-form .news-save-btn:hover {
+  background: #a41149;
+  border-color: #a41149;
+}
+
+/* 삭제 버튼 */
+.news-form .news-delete-btn {
+  background: #ffffff;
+  border: 1px solid #f0bfd8;
+  color: #c11658;
+}
+
+.news-form .news-delete-btn:hover {
+  background: #fff0f6;
+  border-color: #c11658;
+  color: #a11146;
+}
+/* 레이블 + 입력 한 줄 배치 */
+.news-form .news-field-inline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.news-form .news-field-inline .form-label {
+  margin-bottom: 0;
+  white-space: nowrap;
+  min-width: 90px;
+}
+
+/* 입력 영역이 남는 공간 다 먹게 */
+.news-form .news-field-inline .form-control,
+.news-form .news-field-inline .form-select,
+.news-form .news-field-inline textarea {
+  flex: 1 1 auto;
+}
+
+/* 카테고리 옆 상단 고정 표시용 */
+.news-form .pinned-check {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 0;
+}
+
+.news-form .pinned-check .form-check-label {
+  font-size: 0.85rem;
+  color: #8a2852;
+  white-space: nowrap;
+}
+
+/* 모바일에서는 다시 세로 정렬 */
+@media (max-width: 767.98px) {
+  .news-form .news-field-inline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .news-form .news-field-inline .form-label {
+    min-width: 0;
+  }
+}
+/* 공통 액션 버튼 스타일 */
+.news-form .news-save-btn,
+.news-form .news-delete-btn,
+.news-form .news-view-btn {
+  border-radius: 999px;
+  padding: 0.4rem 1.4rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* 저장 버튼 */
+.news-form .news-save-btn {
+  background: #c11658;
+  border-color: #c11658;
+  color: #ffffff;
+}
+
+.news-form .news-save-btn:hover {
+  background: #a41149;
+  border-color: #a41149;
+}
+
+/* 삭제 버튼 */
+.news-form .news-delete-btn {
+  background: #ffffff;
+  border: 1px solid #f0bfd8;
+  color: #c11658;
+}
+
+.news-form .news-delete-btn:hover {
+  background: #fff0f6;
+  border-color: #c11658;
+  color: #a11146;
+}
+
+/* 보기 버튼 */
+.news-form .news-view-btn {
+  background: #ffffff;
+  border: 1px solid #e2b3cf;
+  color: #8a2852;
+}
+
+.news-form .news-view-btn:hover {
+  background: #f9edf4;
+  border-color: #c11658;
+  color: #8a2852;
+}
+/* 뉴스 목록 상단 필터: 레이블 + 입력 한 줄 정렬 */
+.news-page .news-filter-inline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.news-page .news-filter-inline .form-label {
+  margin-bottom: 0;
+  white-space: nowrap;
+  min-width: 60px;
+}
+
+/* 입력/셀렉트가 남는 공간 다 차지하도록 */
+.news-page .news-filter-inline .form-control,
+.news-page .news-filter-inline .form-select {
+  flex: 1 1 auto;
+}
+
+/* 모바일에서는 다시 세로 정렬 */
+@media (max-width: 767.98px) {
+  .news-page .news-filter-inline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .news-page .news-filter-inline .form-label {
+    min-width: 0;
+  }
+}
+/* 뉴스 필터: 검색 라벨과 입력칸 간격 줄이기 */
+.news-page .news-filter-inline {
+  gap: 12px;            /* 기존 10px 정도였다면 이렇게 줄이기 */
+}
+
+.news-page .news-filter-inline .form-label {
+  min-width: 0;        /* 라벨 최소폭 없애서 더 붙게 */
+}
+.news-form .news-field-inline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 10px;   /* 위 여백 */
+  padding-bottom: 10px;/* 아래 여백 */
+}
+.news-show .news-footer-actions {
+  max-width: 880px;
+  margin: 1.25rem auto 0;
+  justify-content: flex-end;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+/* 공통 스타일 */
+.news-show .news-footer-actions .btn {
+  border-radius: 999px;
+  font-size: .8rem;
+  padding: .35rem 1rem;
+  font-weight: 600;
+}
+
+/* 목록 버튼 */
+.news-show .news-back-btn {
+  background: #ffffff;
+  border: 1px solid #e2b3cf;
+  color: #8a2852;
+}
+
+.news-show .news-back-btn:hover {
+  background: #f9edf4;
+  border-color: #c11658;
+  color: #8a2852;
+}
+
+/* 수정 버튼 */
+.news-show .news-edit-btn {
+  background: #c11658;
+  border-color: #c11658;
+  color: #ffffff;
+}
+
+.news-show .news-edit-btn:hover {
+  background: #a11146;
+  border-color: #a11146;
+}

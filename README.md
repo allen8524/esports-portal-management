@@ -1,522 +1,75 @@
-# NEXUS
-
-Laravel 기반 e스포츠 포털 관리 웹 애플리케이션입니다.
-
-이 프로젝트는 단순한 정보 조회 사이트가 아니라, 선수·팀·경기·순위·뉴스·패치 노트까지 하나의 흐름으로 관리할 수 있는 통합형 e스포츠 포털을 목표로 구성되어 있습니다.  
-프론트 화면은 실제 e스포츠 미디어 사이트처럼 보이도록 구성되어 있고, 백엔드에서는 CRUD, 인증, 관리자 화면, 데이터 집계, 파일 업로드, 슬러그 라우팅, 검색/필터링 기능을 함께 다룹니다.
-
-이 README는 업로드된 프로젝트 파일의 실제 코드 구조를 기준으로 정리했습니다.
-
-## 1. 프로젝트 한 줄 소개
-
-- 프로젝트명: NEXUS
-- 성격: Laravel 개인 프로젝트
-- 주제: e스포츠 포털 및 관리 시스템
-- 주요 대상 데이터: 선수, 팀, 경기, 뉴스, 패치 노트, 회원 계정
-- 특징: 사용자용 포털 화면과 관리자용 관리 화면이 함께 존재하는 구조
-
-## 2. 프로젝트 목표
-
-이 프로젝트의 핵심 목적은 다음과 같습니다.
-
-- e스포츠 관련 정보를 한곳에서 조회할 수 있는 포털 화면 구현
-- 선수, 팀, 경기, 뉴스 데이터를 직접 등록·수정·삭제할 수 있는 관리 기능 구현
-- 경기 결과를 바탕으로 팀 순위를 자동 집계하는 기능 구현
-- 회원가입, 로그인, 계정 관리, 관리자 전용 접근 제어까지 포함한 웹 서비스 구조 경험
-- Laravel의 라우팅, 미들웨어, Eloquent ORM, 파일 업로드, Blade 템플릿, 페이지네이션, 캐시 활용 경험 축적
-
-## 3. 주요 기능
-
-### 3-1. 메인 홈 화면
-
-홈 화면은 여러 섹션이 조합된 포털형 구조입니다.
-
-포함된 섹션은 다음과 같습니다.
-
-- 히어로 섹션
-  - 가장 가까운 예정 경기 1건을 자동으로 조회해 메인 배너에 표시
-  - 경기 제목이 있으면 제목 우선 표시
-  - 제목이 없으면 팀1 VS 팀2 형식으로 자동 구성
-  - 리그, 스테이지, Bo 정보까지 함께 표시
-  - 경기 상세 페이지로 바로 이동 가능
-
-- 트렌딩 뉴스 섹션
-  - 최신 뉴스 또는 조회수 기반 뉴스 목록을 슬라이더 형식으로 노출
-
-- 경기 섹션
-  - 예정 경기 목록
-  - 최근 종료 경기 목록
-  - 팀 로고, 경기 날짜, 매치업, 결과 확인 가능
-
-- 패치 노트 섹션
-  - 최신 리그 오브 레전드 패치 노트 노출
-  - 버전 정보와 공개일 표시
-  - 버전 기반 공식 패치 노트 링크 생성 로직 포함
-
-- 최신 뉴스 섹션
-  - 대표 기사 1건 + 최신 기사 여러 건 구성
-  - 기사 썸네일, 카테고리, 발행일, 조회수 확인 가능
-
-- 팀 순위 미리보기
-  - 종료된 경기 결과를 기반으로 간단 순위표 생성
-  - 팀명, 경기 수, 승/패, 승점 표시
-  - 전체 순위 페이지로 이동 가능
-
-- 실시간 급상승 섹션
-  - 경기 VOD 링크가 있는 데이터를 중심으로 영상 슬라이더 구성
-  - YouTube 썸네일 추출 로직을 사용해 영상 카드 구성
-
-- 인기 뉴스 / 시청자 투표 섹션
-  - 조회수 상위 뉴스 노출
-  - 팀 / 선수 인기 투표 형태의 시각적 섹션 포함
-
-즉, 홈 화면 하나만 봐도 이 프로젝트가 단순 CRUD 과제가 아니라 실제 서비스형 포털 UI를 지향한다는 점이 드러납니다.
-
-### 3-2. 선수 관리 기능
-
-선수 기능은 조회와 관리가 분리되어 있습니다.
-
-조회 측면에서는 다음을 지원합니다.
-
-- 이름, 닉네임, 슬러그 기준 검색
-- 포지션별 필터
-- 팀별 필터
-- 활동 중 선수만 보기
-- 페이지네이션
-- 카드형 UI로 선수 목록 표시
-
-관리 측면에서는 다음을 지원합니다.
-
-- 선수 등록
-- 선수 수정
-- 선수 삭제
-- 실명, 닉네임, 슬러그, 포지션, 국가코드, 생년월일, 소속 팀, 활동 여부, 입단일/탈퇴일 입력
-- 사진 업로드 또는 외부 URL 입력
-- slug 자동 생성
-- 활동 여부 boolean 처리
-
-선수 상세 페이지는 slug 기반 라우팅으로 동작하도록 설계되어 있어, URL 가독성까지 고려한 구조입니다.
-
-### 3-3. 팀 관리 기능
-
-팀 기능 역시 조회와 관리가 나뉘어 있습니다.
-
-조회 기능
-
-- 팀명, 슬러그, 지역 기준 검색
-- 페이지네이션
-- 카드형 팀 목록 UI
-- 팀 로고 표시
-- 팀 상세 페이지에서 소속 선수 목록 조회
-
-관리 기능
-
-- 팀 등록
-- 팀 수정
-- 팀 삭제
-- 팀명, 슬러그, 지역, 창단일, 로고, 활동 여부 입력
-- 로고 업로드
-- slug 자동 생성
-- 로고 삭제 시 물리 파일 정리 처리
-
-팀 상세에서는 팀 단위 정보뿐 아니라 선수 연관 관계까지 함께 보여주는 구조라서, 팀-선수 관계를 자연스럽게 확인할 수 있습니다.
-
-### 3-4. 경기 관리 기능
-
-경기 모듈은 이 프로젝트에서 가장 서비스성이 높은 기능 중 하나입니다.
-
-지원 기능
-
-- 경기 목록 조회
-- 경기 등록
-- 경기 수정
-- 경기 삭제
-- 경기 상세 조회
-
-조회 시 필터링 조건
-
-- 제목/리그/스테이지 검색
-- 특정 팀 기준 경기 검색
-- 상태별 검색
-- 시작일 범위 검색
-
-경기 데이터 항목
-
-- 제목
-- slug
-- 팀1 / 팀2
-- Bo1 / Bo3 / Bo5 / Bo7
-- 시작 시간
-- 상태(scheduled, live, finished, canceled)
-- 양 팀 스코어
-- 승리 팀
-- 스테이지
-- 리그
-- VOD URL
-- 비고
-
-구현 특징
-
-- 종료 경기에서 winner_team_id가 비어 있어도 점수 비교를 통해 자동 승자 계산
-- 리그 목록 자동 추출
-- 스테이지 템플릿 제공
-  - Regional Split
-  - Regular Season
-  - Playoffs
-  - MSI 관련 스테이지
-  - Worlds 관련 스테이지
-  - Regional Finals 등
-
-이 덕분에 단순히 경기 1건을 저장하는 수준이 아니라, e스포츠 리그 운영 화면처럼 일정과 결과를 관리하는 느낌을 살린 구조가 되어 있습니다.
-
-### 3-5. 순위 집계 기능
-
-순위 페이지는 단순 정적 표가 아니라, matches 테이블의 실제 결과를 바탕으로 팀 성적을 계산합니다.
-
-집계 기준
-
-- status가 finished인 경기만 반영
-- 홈팀(team1) / 원정팀(team2) 데이터를 단일 스키마로 정규화 후 union all
-- 팀별 경기 수, 승수, 패수, 득점, 실점, 득실차, 승률 계산
-
-지원 기능
-
-- 리그 기준 필터
-- 스테이지 기준 필터
-- 경기 0팀 포함 여부 옵션
-- 정렬 기준 변경
-  - wins
-  - winrate
-  - diff
-  - name
-  - score_for
-  - score_against
-- 5분 캐시 적용
-
-이 부분은 단순 CRUD보다 한 단계 더 나아간 데이터 가공 및 통계 집계 경험을 보여주는 기능입니다.
-
-### 3-6. 뉴스 기능
-
-뉴스 모듈은 포털형 서비스에서 핵심 콘텐츠 영역 역할을 합니다.
-
-지원 기능
-
-- 뉴스 목록 조회
-- 뉴스 상세 조회
-- 뉴스 등록
-- 뉴스 수정
-- 뉴스 삭제
-
-조회 기능
-
-- 제목/요약/본문 검색
-- 카테고리 필터
-- 최신순 / 인기순 정렬
-- 공개 시점이 현재 이전인 뉴스만 노출
-- 페이지네이션
-
-관리 기능
-
-- 카테고리 지정
-- 제목, 슬러그, 요약, 본문 입력
-- 커버 이미지 업로드
-- 출처 URL 입력
-- 상단 고정 여부 지정
-- 발행 시각 설정
-- 슬러그 유니크 보정
-- 요약 자동 생성
-- 상세 진입 시 조회수 증가
-
-뉴스 상세 라우트는 slug 기반으로 설계되어 있어 콘텐츠 사이트다운 URL 구조를 가집니다.
-
-### 3-7. 패치 노트 기능
-
-패치 노트는 뉴스와 별도로 독립된 콘텐츠 영역으로 분리되어 있습니다.
-
-지원 기능
-
-- 패치 노트 목록 조회
-- 패치 노트 상세 조회
-- 게임, 버전, 제목, slug, 공개일, 대표 이미지 관리
-- published 스코프 제공
-- game('lol') 스코프 제공
-
-홈 화면에서는 최신 LoL 패치 노트를 별도 섹션으로 보여주고 있어, e스포츠 포털답게 게임 메타 변화 정보까지 연결하는 흐름을 갖추고 있습니다.
-
-### 3-8. 회원가입 / 로그인 / 계정 관리
-
-인증은 Laravel 기본 users가 아니라 accounts 모델을 중심으로 구성되어 있습니다.
-
-지원 기능
-
-- 회원가입
-- 로그인
-- 로그아웃
-- 내 계정 조회
-- 계정 정보 수정
-- 비밀번호 변경
-
-구성 특징
-
-- web guard가 accounts provider를 사용하도록 auth 설정 변경
-- guest / auth 미들웨어 분리
-- 세션 기반 로그인
-- remember login 지원
-- 계정 수정 시 이메일 중복 검사 및 비밀번호 확인 처리
-
-### 3-9. 관리자 기능
-
-관리자 전용 기능은 별도 prefix와 미들웨어로 보호됩니다.
-
-관리자 영역 URL
-
-- /admin
-- /admin/db
-- /admin/db/{table}
-
-지원 기능
-
-- 관리자 대시보드
-- 전체 계정 수 / 관리자 수 표시
-- 팀 수 / 선수 수 표시
-- 전체 경기 수, 진행 상태별 경기 수 표시
-- 뉴스 수 / 패치 노트 수 표시
-- 최근 가입 계정 목록
-- 다가오는 경기 목록
-- 최근 종료 경기 목록
-- 최근 뉴스 목록
-- 리그별 경기 수 통계
-- DB 테이블 목록 조회
-- 특정 테이블 레코드 단순 조회
-
-특히 /admin/db 기능은 테이블 이름과 레코드를 브라우저에서 직접 확인할 수 있게 만든 간단한 DB 브라우저로, 데이터 확인용 관리 기능을 구현했다는 점에서 프로젝트 완성도를 높여 줍니다.
-
-### 3-10. 법적 고지 페이지
-
-다음 정적 페이지도 포함되어 있습니다.
-
-- Copyright notice
-- Terms of use
-- Privacy policy
-
-서비스형 사이트 구조를 의식하고 구성한 흔적을 보여주는 부분입니다.
-
-## 4. 기술 스택
-
-### 백엔드
-
-- PHP 8.2+
-- Laravel 12
-- Eloquent ORM
-- Blade Template
-- Laravel Middleware
-- Laravel Pagination
-- Laravel Cache
-- Laravel Session Auth
-
-### 프론트엔드
-
-- Blade
-- Bootstrap
-- jQuery 기반 플러그인
-- Owl Carousel
-- Magnific Popup
-- SlickNav
-- Font Awesome
-- 커스텀 CSS
-
-### 데이터베이스
-
-- MySQL 사용 전제로 설정됨
-- 개발 파일 내 기본 SQLite 파일도 존재하지만, 업로드된 상태에서는 주요 테이블이 마이그레이션되어 있지 않음
-
-### 빌드 도구
-
-- Vite
-- TailwindCSS 4 패키지 포함
-- Axios
-- Concurrently
-
-### 기타 패키지
-
-composer.json 기준으로 다음 패키지가 포함되어 있습니다.
-
-- intervention/image-laravel
-- phpoffice/phpspreadsheet
-- laravel/tinker
-- pestphp/pest
-- pestphp/pest-plugin-laravel
-
-다만 현재 업로드된 코드 기준으로는 이미지 리사이즈나 스프레드시트 내보내기 기능이 본격적으로 연결되어 있지는 않습니다.
-
-## 5. 데이터 모델 요약
-
-프로젝트의 핵심 테이블 구조는 다음과 같습니다.
-
-### accounts
-
-회원 계정 테이블입니다.
-
-주요 컬럼
-
-- id
-- name
-- email
-- password
-- remember_token
-- created_at
-- updated_at
-
-코드상 Account 모델과 관리자 미들웨어는 is_admin 컬럼을 참조하고 있으므로, 실제 관리자 기능을 정상 사용하려면 accounts 테이블에 is_admin 컬럼이 필요합니다.
-
-### teams
-
-팀 정보 테이블입니다.
-
-주요 컬럼
-
-- name
-- slug
-- region
-- founded_at
-- logo_url
-- is_active
-- meta
-
-### players
-
-선수 정보 테이블입니다.
-
-주요 컬럼
-
-- name
-- ign
-- slug
-- role
-- country
-- birthdate
-- team_id
-- photo_url
-- is_active
-- joined_at
-- left_at
-- meta
-
-### matches
-
-경기 정보 테이블입니다.
-
-주요 컬럼
-
-- slug
-- title
-- team1_id
-- team2_id
-- best_of
-- start_at
-- status
-- team1_score
-- team2_score
-- winner_team_id
-- stage
-- league
-- vod_url
-- notes
-
-### categories
-
-뉴스 카테고리 테이블입니다.
-
-주요 컬럼
-
-- name
-- slug
-
-### news
-
-뉴스 콘텐츠 테이블입니다.
-
-주요 컬럼
-
-- category_id
-- title
-- slug
-- excerpt
-- content
-- cover_path
-- source_url
-- is_pinned
-- published_at
-- views
-
-### patch_notes
-
-패치 노트 테이블입니다.
-
-주요 컬럼
-
-- game
-- version
-- title
-- slug
-- published_at
-- hero_image
-
-## 6. 관계 구조
-
-- Team 1 : N Player
-- Match 는 Team 2개를 참조
-- Match 는 winner_team_id로 승리 팀 참조 가능
-- News 는 Category에 속할 수 있음
-- Account 는 인증 주체 역할 수행
-
-요약하면, 팀과 선수는 기본 마스터 데이터이고, 경기는 이 마스터 데이터를 참조하여 진행되며, 뉴스와 패치 노트는 서비스 콘텐츠 영역을 담당합니다.
-
-## 7. 라우팅 구조
-
-핵심 라우트는 다음과 같습니다.
-
-### 공개 라우트
-
-- /
-- /players
-- /players/{player:slug}
-- /teams
-- /teams/{team}
-- /matches
-- /matches/{match}
-- /rankings
-- /news
-- /news/{news:slug}
-- /patch-notes
-- /patch-notes/{patchNote:slug}
-- /legal/copyright-notice
-- /legal/terms-of-use
-- /legal/privacy-policy
-
-### 게스트 전용
-
-- /register
-- /login
-
-### 로그인 사용자 전용
-
-- /logout
-- /account
-- /account/edit
-- /account
-
-### 관리자 전용
-
-- /admin
-- /admin/db
-- /admin/db/{table}
-
-즉, 사용자 포털 영역과 관리자 영역이 한 프로젝트 안에 공존하는 구조입니다.
-
-## 8. 디렉터리 구조
-
-실제 프로젝트에서 핵심적으로 봐야 할 폴더는 다음과 같습니다.
+# e스포츠 포털 관리 시스템
+
+## 프로젝트 개요
+이 프로젝트는 Laravel 기반으로 제작한 개인 학습용 e스포츠 포털 관리 웹 애플리케이션입니다. 사용자 화면에서는 팀, 선수, 경기, 뉴스, 패치 노트를 조회할 수 있고, 관리자 권한 계정에서는 팀/선수/경기/뉴스 데이터를 등록·수정·삭제할 수 있습니다. 특히 `matches` 데이터를 기준으로 순위표를 계산해 보여주는 집계 로직을 포함하고 있어, 단순 게시판보다는 포털형 데이터 흐름을 구현하는 데 초점을 맞췄습니다. 라우팅, 미들웨어, Eloquent 관계, 파일 업로드, Blade 화면 구성을 함께 다루면서 Laravel MVC 구조를 학습하기 위한 목적으로 작성했습니다.
+
+## 개발 목적
+- Laravel MVC 구조 학습
+- 팀, 경기, 뉴스 데이터 관리 흐름 구현
+- 경기 결과 기반 순위 집계 로직 구현
+- 관리자 인증 및 접근 제어 흐름 이해
+- Blade 기반 화면 구성과 라우팅 처리 학습
+
+## 주요 기능
+실제 코드에서 확인되는 기능만 정리했습니다.
+
+- 팀 관리
+  - 팀 목록/상세 조회
+  - 팀 등록, 수정, 삭제
+  - 팀 로고 업로드(`storage/app/public/teams`) 및 삭제 시 파일 정리
+- 경기 관리
+  - 경기 목록/상세 조회
+  - 경기 등록, 수정, 삭제
+  - 상태(`scheduled`, `live`, `finished`, `canceled`) 및 점수/승리팀 관리
+  - `finished` 상태에서 승리팀 미입력 시 점수 비교로 자동 계산
+- 순위 집계
+  - `status = finished` 경기만 반영
+  - 홈/원정 데이터를 `union all`로 합친 뒤 팀별 집계
+  - 경기 수, 승/패, 득점/실점, 득실차, 승률 계산
+  - 리그/스테이지 필터, 정렬 기준 변경, 5분 캐시
+- 뉴스 관리
+  - 뉴스 목록/상세 조회
+  - 뉴스 등록, 수정, 삭제
+  - 카테고리 필터, 검색, 최신순/인기순 정렬
+  - 표지 이미지 업로드(`storage/app/public/news`) 및 수정/삭제 시 파일 정리
+- slug 라우팅
+  - 뉴스 상세: `news/{news:slug}` 형태로 모델 바인딩
+  - 패치노트 상세: `patch-notes/{patchNote:slug}`
+  - 선수 상세: `players/{player:slug}`
+- 관리자 인증
+  - 관리자 전용 라우트(`/admin/*`)를 `auth`, `admin` 미들웨어로 보호
+  - 관리자 대시보드 및 DB 브라우저 화면 제공
+- 부가 기능
+  - 선수 CRUD 및 선수 사진 업로드(`storage/app/public/players`)
+  - 패치 노트 목록/상세 조회
+
+## 기술 스택
+프로젝트 파일(`composer.json`, `package.json`, Blade/라우트/컨트롤러 코드) 기준으로 정리했습니다.
+
+- Backend
+  - PHP 8.2
+  - Laravel 12
+  - Eloquent ORM
+  - Laravel Middleware
+- Database
+  - 관계형 DB 기반 스키마(MySQL/MariaDB 사용을 전제로 한 쿼리 포함: `SHOW TABLES`)
+- Frontend
+  - Blade
+  - HTML/CSS/JavaScript
+  - Bootstrap 4 (정적 에셋 포함)
+- Build / Tool
+  - Composer
+  - npm / Vite (스크립트 정의)
+  - Git
+- Library
+  - intervention/image-laravel
+  - phpoffice/phpspreadsheet
+- 기타
+  - Laravel Cache (`Cache::remember` 사용)
+  - Laravel Storage (public 디스크 업로드/삭제)
+
+## 프로젝트 구조
+실제 폴더 기준 핵심 구조입니다.
 
 ```text
 app/
@@ -526,233 +79,121 @@ app/
     Middleware/
     Requests/
   Models/
-
 bootstrap/
 config/
 database/
   migrations/
   seeders/
-
 public/
-  css/
-  img/
-  js/
-  *.html
-
 resources/
   views/
-    account/
-    admin/
-    auth/
-    layouts/
-    matches/
-    news/
-    partials/
-    patch_notes/
-    players/
-    rankings/
-    sections/
-    teams/
-
 routes/
   web.php
+storage/
 ```
 
-구조를 보면 역할이 비교적 명확하게 분리되어 있습니다.
-
-- app/Models: 도메인 모델
-- app/Http/Controllers: 기능별 요청 처리
-- resources/views: 실제 화면 구성
-- resources/views/sections: 홈 화면 섹션 단위 분리
-- database/migrations: 스키마 설계
-- database/seeders: 초기 데이터 입력
-- public: 이미지, CSS, 템플릿 자산
-
-## 9. 화면 구성 요약
-
-### 홈
-
-포털 메인, 예정 경기, 트렌딩 뉴스, 경기 결과, 패치 노트, 인기 뉴스, 순위, 영상 등
-
-### 선수 페이지
-
-선수 검색, 포지션 필터, 팀 필터, 활동 여부 필터, 카드형 목록
-
-### 팀 페이지
-
-팀 검색, 팀 카드 목록, 상세 페이지에서 로스터 확인
-
-### 경기 페이지
-
-경기 일정/상태 필터, 날짜 범위 필터, 상세 보기, 수정
-
-### 순위 페이지
-
-집계형 순위표, 리그/스테이지별 필터
-
-### 뉴스 페이지
-
-검색, 카테고리, 정렬, 카드형 기사 목록, 기사 상세
-
-### 인증 페이지
-
-회원가입, 로그인, 내 계정, 정보 수정
-
-### 관리자 페이지
-
-요약 대시보드, 최근 데이터, DB 테이블 브라우저
-
-## 10. 실행 방법
-
-아래는 일반적인 로컬 실행 절차입니다.
-
-### 10-1. 사전 준비
-
-필요 환경
-
-- PHP 8.2 이상
-- Composer
-- MySQL
-- Node.js / npm
-
-### 10-2. 프로젝트 설치
-
-```bash
-composer install
-npm install
-cp .env.example .env
-php artisan key:generate
-```
-
-Windows라면 다음처럼 사용할 수도 있습니다.
-
-```bash
-copy .env.example .env
-php artisan key:generate
-```
-
-### 10-3. 데이터베이스 생성
-
-MySQL에서 사용할 데이터베이스를 먼저 생성합니다.
-
-예시:
-
-```sql
-CREATE DATABASE nexus CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-```
-
-그 다음 .env 에서 DB 정보를 맞춰 줍니다.
-
-```env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=nexus
-DB_USERNAME=root
-DB_PASSWORD=비밀번호
-```
-
-### 10-4. 마이그레이션
-
-```bash
-php artisan migrate
-```
-
-### 10-5. 스토리지 링크
-
-선수 사진, 팀 로고, 뉴스 커버 이미지를 public 에서 접근하려면 아래 명령이 필요합니다.
-
-```bash
-php artisan storage:link
-```
-
-### 10-6. 개발 서버 실행
-
-백엔드 서버:
-
-```bash
-php artisan serve
-```
-
-프론트 빌드:
-
-```bash
-npm run dev
-```
-
-또는 composer.json의 dev 스크립트를 사용할 수 있습니다.
-
-```bash
-composer run dev
-```
-
-## 11. 초기 데이터 준비 방법
-
-현재 업로드된 코드 기준으로는 데이터가 완전히 자동으로 채워지는 구조는 아닙니다.  
-특히 인증은 accounts 테이블을 사용하므로, 직접 계정을 하나 만들어 두는 것이 좋습니다.
-
-### 11-1. 패치 노트 시드
-
-```bash
-php artisan db:seed --class=PatchNoteSeeder
-```
-
-### 11-2. 뉴스 시드
-
-뉴스는 Category 와 News 데이터를 함께 구성해야 하므로 아래처럼 실행할 수 있습니다.
-
-```bash
-php artisan db:seed --class=NewsSeeder
-```
-
-### 11-3. 일반 사용자 계정 생성 예시
-
-```bash
-php artisan tinker
-```
-
-```php
-use App\Models\Account;
-use Illuminate\Support\Facades\Hash;
-
-Account::create([
-    'name' => 'user',
-    'email' => 'user@example.com',
-    'password' => Hash::make('password1234'),
-]);
-```
-
-### 11-4. 관리자 계정 생성 예시
-
-관리자 기능을 사용하려면 accounts 테이블에 is_admin 컬럼이 있어야 합니다.
-
-예시 마이그레이션:
-
-```bash
-php artisan make:migration add_is_admin_to_accounts_table --table=accounts
-```
-
-마이그레이션 파일 예시:
-
-```php
-Schema::table('accounts', function (Blueprint $table) {
-    $table->boolean('is_admin')->default(false)->after('password');
-});
-```
-
-실행:
-
-```bash
-php artisan migrate
-```
-
-그 다음 tinker 로 관리자 계정을 생성합니다.
-
-```php
-Account::create([
-    'name' => 'admin',
-    'email' => 'admin@example.com',
-    'password' => Hash::make('password1234'),
-    'is_admin' => true,
-]);
-```
+## DB 설계 요약
+`database/migrations` 기준으로 작성했습니다.
+
+| 테이블 | 주요 역할 | 주요 컬럼 |
+| --- | --- | --- |
+| accounts | 로그인 계정 저장 | id, name, email, password, remember_token |
+| users | 기본 Laravel 사용자 테이블(프로젝트 auth 기본 provider와는 별도) | id, name, email, password |
+| teams | 팀 정보 저장 | id, name, slug, region, founded_at, logo_url, is_active, meta |
+| players | 선수 정보 저장 | id, name, ign, slug, role, country, birthdate, team_id, photo_url, is_active |
+| matches | 경기 일정/결과 저장 | id, slug, title, team1_id, team2_id, best_of, start_at, status, team1_score, team2_score, winner_team_id, stage, league |
+| categories | 뉴스 카테고리 저장 | id, name, slug |
+| news | 뉴스 게시글 저장 | id, category_id, title, slug, excerpt, content, cover_path, source_url, is_pinned, published_at, views |
+| patch_notes | 패치 노트 저장 | id, game, version, title, slug, published_at, hero_image |
+| cache / cache_locks | 캐시 저장 | key, value, expiration |
+| jobs / job_batches / failed_jobs | 큐/배치/실패 작업 저장 | queue, payload, attempts 등 |
+| password_reset_tokens / sessions | 인증 보조 데이터 저장 | email/token, session payload 등 |
+
+관계(코드/마이그레이션 기준으로 확인 가능한 범위)
+- `players.team_id -> teams.id`
+- `matches.team1_id`, `matches.team2_id`, `matches.winner_team_id -> teams.id`
+- `news.category_id -> categories.id` (`nullOnDelete`)
+
+## 핵심 구현 포인트
+
+### 1. 경기 결과 기반 순위 집계
+- 순위 집계는 `RankingsController@index`에서 수행합니다.
+- `matches` 중 `status = finished` 데이터만 집계에 포함합니다.
+- 홈팀(`team1`)과 원정팀(`team2`) 기준 데이터를 각각 같은 스키마로 만든 뒤 `unionAll`로 합칩니다.
+- 이후 `fromSub + groupBy(team_id)`로 팀별 경기 수, 승/패, 득점/실점, 득실차, 승률을 계산합니다.
+- 최종적으로 `teams`와 join하여 팀 이름/로고를 결합하고, 정렬 기준(`wins`, `winrate`, `diff`, `sf`, `sa`, `name`)을 동적으로 적용합니다.
+- 결과와 리그/스테이지 옵션 목록은 `Cache::remember(..., 300, ...)`으로 5분 캐시합니다.
+
+관련 위치
+- `app/Http/Controllers/RankingsController.php`
+- `routes/web.php` (`/rankings`)
+- `resources/views/rankings/index.blade.php`
+
+### 2. 관리자 인증 및 접근 제어
+- 관리자 영역은 `routes/web.php`에서 `/admin` prefix + `auth`, `admin` 미들웨어 그룹으로 분리되어 있습니다.
+- `AdminMiddleware`는 로그인 여부를 먼저 확인하고, `Auth::user()->is_admin` 값으로 관리자 권한을 검사합니다.
+- 일반 사용자 접근 시 JSON 요청은 403, 일반 웹 요청은 이전 페이지 리다이렉트 + 경고 메시지 처리합니다.
+- 각 도메인 컨트롤러(`TeamController`, `MatchController`, `NewsController`, `PlayerController`, `RankingsController`)도 `HasMiddleware`로 쓰기 기능에 동일한 보호를 적용하고, 목록/상세는 예외로 공개합니다.
+
+관련 위치
+- `routes/web.php`
+- `app/Http/Middleware/AdminMiddleware.php`
+- `bootstrap/app.php` (미들웨어 alias 등록)
+- `app/Http/Controllers/Admin/AdminDashboardController.php`
+- `app/Http/Controllers/Admin/AdminDbController.php`
+
+### 3. 뉴스/팀/경기 데이터 관리와 slug 라우팅
+- 관리자 권한 계정으로 뉴스/팀/경기(그리고 선수) 데이터를 등록·수정·삭제합니다.
+- 뉴스는 `News` 모델의 `getRouteKeyName()`이 `slug`를 반환하여 상세 페이지가 slug 기반으로 연결됩니다.
+- 패치노트/선수도 같은 방식으로 slug 라우팅을 사용합니다.
+- 팀과 경기는 기본 리소스 라우트 바인딩으로 상세를 조회하고, 팀 상세에서 소속 선수 관계를 함께 로드합니다.
+- 뉴스/팀/선수는 이미지 업로드 시 public 디스크를 사용하며, 뉴스/팀은 수정·삭제 시 기존 파일 정리 로직이 구현되어 있습니다.
+
+관련 위치
+- `app/Http/Controllers/NewsController.php`
+- `app/Http/Controllers/TeamController.php`
+- `app/Http/Controllers/MatchController.php`
+- `app/Models/News.php`, `app/Models/PatchNote.php`, `app/Models/Player.php`
+
+## 실행 방법
+현재 저장소 기준 실행 순서입니다.
+
+1. 저장소 클론
+2. 의존성 설치
+   - `composer install`
+   - `npm install`
+3. 환경 파일 준비
+   - `.env` 생성(`.env.example` 복사)
+   - DB 접속 정보 설정
+4. 앱 키 생성
+   - `php artisan key:generate`
+5. 마이그레이션 실행
+   - `php artisan migrate`
+6. 스토리지 심볼릭 링크 생성(업로드 이미지 표시 필요 시)
+   - `php artisan storage:link`
+7. 프론트 에셋 개발 서버 실행(선택)
+   - `npm run dev`
+8. Laravel 서버 실행
+   - `php artisan serve`
+
+시드 데이터
+- 시더 파일은 존재하지만 `DatabaseSeeder`는 현재 `PatchNoteSeeder`와 기본 `User` 팩토리를 호출합니다.
+- 필요 시 개별 시더를 직접 실행하는 방식이 안전합니다.
+  - 예: `php artisan db:seed --class=PatchNoteSeeder`
+
+## 트러블슈팅 또는 학습 포인트
+- 순위 데이터는 `finished` 경기만 집계해야 신뢰도 있는 결과를 유지할 수 있습니다.
+- 홈/원정 데이터 구조가 다르기 때문에 순위표 집계 전 `union all` 정규화 단계가 필요합니다.
+- 관리자 라우트는 반드시 미들웨어로 보호해야 하며, 컨트롤러 쓰기 액션도 별도로 보호하는 것이 안전합니다.
+- slug 라우팅은 중복/누락 시 상세 페이지 연결 문제가 발생할 수 있어 저장 시 유니크 보정 로직이 필요합니다.
+- 업로드 파일을 웹에서 노출하려면 `storage:link`와 저장 경로(`public` 디스크) 관리가 중요합니다.
+- 코드상 `accounts` 인증 모델에서 `is_admin` 값을 사용하므로, 실제 DB 스키마에서도 해당 컬럼 정합성을 확인해야 합니다.
+
+## 향후 개선점
+- 경기 목록/순위 화면의 검색·필터 조건 확장
+- 팀/선수 상세 통계 지표 추가
+- 순위 집계 캐시 키/만료 정책 정리 및 무효화 전략 보강
+- 관리자 권한 등급(예: 읽기 전용, 편집 가능) 분리
+- FormRequest 기반 입력값 검증 범위 확대
+- 테스트 코드(Pest/Laravel) 보강
+- 로컬/배포 환경 설정 절차 문서화
